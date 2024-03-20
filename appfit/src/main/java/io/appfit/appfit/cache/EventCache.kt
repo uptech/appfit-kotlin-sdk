@@ -1,12 +1,9 @@
-package io.appfit.sdk.cache
+package io.appfit.appfit.cache
 
-import android.content.Context
 import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import io.appfit.sdk.AppFitEvent
-import io.appfit.sdk.R
-import io.appfit.sdk.networking.RawMetricEvent
+import io.appfit.appfit.AppFitEvent
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

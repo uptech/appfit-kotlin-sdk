@@ -1,10 +1,9 @@
 @file:Suppress("unused")
 
-package io.appfit.sdk
+package io.appfit.appfit
 
 import android.content.Context
-import io.appfit.sdk.networking.EventDigester
-
+import io.appfit.appfit.networking.EventDigester
 
 /**
  * AppFit handles all of the event tracking for the AppFit dashboard.

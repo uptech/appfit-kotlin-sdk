@@ -1,4 +1,4 @@
-package io.appfit.sdk.networking
+package io.appfit.appfit.networking
 
 /**
  * Batch Raw Metric Events

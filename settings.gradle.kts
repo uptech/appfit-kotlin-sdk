@@ -20,4 +20,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "AppFit"
-include(":app")
+include(":appfit")

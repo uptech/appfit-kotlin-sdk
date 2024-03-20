@@ -1,4 +1,4 @@
-package io.appfit.sdk
+package io.appfit.appfit
 
 /**
  * Configuration for the AppFit SDK.

@@ -1,4 +1,4 @@
-package io.appfit.sdk.networking
+package io.appfit.appfit.networking
 
 import android.util.Log
 import com.google.gson.Gson
@@ -16,8 +16,6 @@ import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
 import io.ktor.http.appendPathSegments
 import io.ktor.http.contentType
-import java.text.DateFormat
-import java.time.ZonedDateTime
 
 internal class ApiClient(
     /// The API key provided by AppFit.

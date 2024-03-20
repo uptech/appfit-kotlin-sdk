@@ -1,4 +1,4 @@
-package io.appfit.sdk
+package io.appfit.appfit
 
 import java.util.Date
 import java.util.UUID

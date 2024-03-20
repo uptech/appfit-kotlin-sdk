@@ -1,9 +1,9 @@
-package io.appfit.sdk.cache
+package io.appfit.appfit.cache
 
 import android.os.Environment
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import io.appfit.sdk.AppFitEvent
+import io.appfit.appfit.AppFitEvent
 import org.junit.Test
 import java.io.File
 import java.util.concurrent.TimeUnit

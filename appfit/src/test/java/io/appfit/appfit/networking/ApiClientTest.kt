@@ -1,4 +1,4 @@
-package io.appfit.sdk.networking
+package io.appfit.appfit.networking
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceUntilIdle

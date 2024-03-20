@@ -1,8 +1,6 @@
-package io.appfit.sdk.cache
+package io.appfit.appfit.cache
 
 import android.content.Context
-import android.icu.lang.UProperty.AGE
-import android.service.autofill.UserData
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit

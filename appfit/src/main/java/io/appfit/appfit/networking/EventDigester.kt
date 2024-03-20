@@ -1,14 +1,12 @@
-package io.appfit.sdk.networking
+package io.appfit.appfit.networking
 
 import android.content.Context
-import android.os.CountDownTimer
-import io.appfit.sdk.AppFitEvent
-import io.appfit.sdk.cache.AppFitCache
-import io.appfit.sdk.cache.EventCache
+import io.appfit.appfit.AppFitEvent
+import io.appfit.appfit.cache.AppFitCache
+import io.appfit.appfit.cache.EventCache
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.Timer
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
