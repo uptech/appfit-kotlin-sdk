@@ -3,11 +3,15 @@ package io.appfit.sdk
 import java.util.Date
 import java.util.UUID
 
-
-/// An event that can be sent to AppFit
-///
-///Each event contains all of the metadata for tracking.
-/// This contains all of the data from the parameters below.
+/**
+ * An event that can be sent to AppFit
+ *
+ * Each event contains all of the metadata for tracking.
+ * This contains all of the data from the parameters below.
+ *
+ * @param name: The name of the event.
+ * @param properties: The properties of the event.
+ */
 data class AppFitEvent(
     /// The unique identifier of the event
     internal val id: UUID = UUID.randomUUID(),
