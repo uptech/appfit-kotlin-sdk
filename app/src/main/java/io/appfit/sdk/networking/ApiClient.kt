@@ -66,7 +66,6 @@ internal class ApiClient(
 
     suspend fun send(event: RawMetricEvent): Boolean{
         val gson = getConfiguredGsonSerializer()
-        print(gson.toJson(event, RawMetricEvent::class.java))
 
         val response: HttpResponse = client.post {
             url {

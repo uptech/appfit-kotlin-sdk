@@ -1,5 +1,6 @@
 package io.appfit.sdk
 
+import android.content.Context
 import io.appfit.sdk.networking.EventDigester
 
 /// AppFit handles all of the event tracking for the AppFit dashboard.
@@ -19,10 +20,11 @@ import io.appfit.sdk.networking.EventDigester
 ///   - configuration: The configuration for the AppFit SDK.
 @Suppress("MemberVisibilityCanBePrivate")
 class AppFit(
+    context: Context,
     /// The configuration for the AppFit SDK.
     configuration: AppFitConfiguration
 ) {
-    private val eventDigester = EventDigester(apiKey = configuration.apiKey)
+    private val eventDigester = EventDigester(context = context, apiKey = configuration.apiKey)
 
     init {
         // Once we boot up the AppFit SDK, we need to generate an anonymousId

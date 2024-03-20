@@ -10,10 +10,10 @@ import java.util.UUID
 /// This contains all of the data from the parameters below.
 data class AppFitEvent(
     /// The unique identifier of the event
-    private val id: UUID = UUID.randomUUID(),
+    internal val id: UUID = UUID.randomUUID(),
 
     /// The date of the event
-    private val date: Date = Date(),
+    internal val date: Date = Date(),
 
     /// The name of the event
     val name: String,
