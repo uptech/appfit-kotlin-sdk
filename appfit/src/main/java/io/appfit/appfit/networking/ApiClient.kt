@@ -31,24 +31,6 @@ internal class ApiClient(
         install(HttpTimeout) {
             requestTimeoutMillis = 3000
         }
-        HttpResponseValidator {
-            validateResponse { response: HttpResponse ->
-                val statusCode = response.status.value
-                when (statusCode) {
-                    in 300..399 -> Log.e("ApiClient", "300-399: $response")
-                    in 400..499 -> Log.e("ApiClient", "400-499: $response")
-                    in 500..599 -> Log.e("ApiClient", "500-599: $response")
-                }
-
-                if (statusCode >= 600) {
-                    Log.e("ApiClient", "500-599: $response")
-                }
-            }
-            handleResponseExceptionWithRequest { request, cause ->
-                Log.e("ApiClient", "Request: $request")
-                Log.e("ApiClient", "Cause: $cause")
-            }
-        }
         defaultRequest {
             url(baseUrl)
             contentType(ContentType.Application.Json)

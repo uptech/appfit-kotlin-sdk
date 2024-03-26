@@ -2,10 +2,9 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("maven-publish")
-    id("signing")
 }
 
-val sdkVersion = "0.0.1"
+val sdkVersion = "0.0.2-SNAPSHOT"
 android {
     namespace = "io.appfit.appfit"
     compileSdk = 34
@@ -97,10 +96,7 @@ publishing {
     }
     repositories {
         maven {
-            name = "AppFit"
-            val repositoryId: String? = System.getenv("MAVEN_REPOSITORY_ID")
-//            val releaseUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/deployByRepositoryId/$repositoryId")
-//            val snapshotUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshot/")
+            version = sdkVersion
             val releaseUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
             val snapshotUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
             url = if (version.toString().endsWith("SNAPSHOT")) snapshotUrl else releaseUrl
@@ -112,20 +108,11 @@ publishing {
     }
 }
 
-//signing {
-//    useInMemoryPgpKeys(
-//        System.getenv("GPG_PRIVATE_KEY"),
-//        System.getenv("GPG_PRIVATE_PASSWORD")
-//    )
-//    sign(publishing.publications)
-//}
-
 dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.gson)
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
     implementation(libs.androidx.datastore.preferences)
 
     testImplementation(libs.junit)
