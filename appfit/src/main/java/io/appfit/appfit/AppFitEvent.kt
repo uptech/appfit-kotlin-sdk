@@ -23,5 +23,5 @@ data class AppFitEvent(
     val name: String,
 
     /// The properties for the event
-    val properties: Map<String, String>? = null
+    val properties: Map<String, Any>? = null
 )

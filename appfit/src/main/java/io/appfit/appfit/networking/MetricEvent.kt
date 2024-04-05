@@ -31,10 +31,10 @@ internal data class MetricEvent(
     /**
      * The properties of the event.
      */
-    val properties: Map<String, String>?,
+    val properties: Map<String, Any>?,
 
     /**
      * The system properties of the event.
      */
-    val systemProperties: Map<String, String>?
+    val systemProperties: Map<String, Any>?
 )

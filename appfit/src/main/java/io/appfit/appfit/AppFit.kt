@@ -30,16 +30,12 @@ class AppFit(
      *
      * This is used to track events in the AppFit dashboard.
      *
-     * > Warning: All properties are string based. If you have any other types
-     * > of values that you would like included, it would have to be converted to
-     * > a string.
-     *
      *  @param name: The name of the event.
      *  @param properties: The properties of the event.
      */
     fun trackEvent(
         name: String,
-        properties: Map<String, String>? = null
+        properties: Map<String, Any>? = null
     ) {
         track(event = AppFitEvent(name = name, properties = properties))
     }
