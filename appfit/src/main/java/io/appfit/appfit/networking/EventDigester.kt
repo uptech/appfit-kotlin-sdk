@@ -10,6 +10,11 @@ import kotlinx.coroutines.launch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
+interface Digestible {
+    fun digest(event: AppFitEvent)
+    fun identify(userId: String?)
+}
+
 /**
  * EventDigester takes in events, and handles the caching, posting, and
  * retrying of failed events.
@@ -18,7 +23,7 @@ import java.util.concurrent.TimeUnit
 internal class EventDigester(
     context: Context,
     apiKey: String
-) {
+): Digestible {
     private val appFitCache = AppFitCache(context = context)
     private val cache = EventCache()
     private val apiClient = ApiClient(apiKey = apiKey)
@@ -37,6 +42,7 @@ internal class EventDigester(
      *
      * This is used to digest the event and send it to the AppFit API.
      */
+    override
     fun digest(event: AppFitEvent) {
         // Digest the event
         GlobalScope.launch {
@@ -62,6 +68,7 @@ internal class EventDigester(
      *
      * This is used to identify the user in the AppFit API.
      */
+    override
     fun identify(userId: String?) {
         // Identify the user
         GlobalScope.launch {

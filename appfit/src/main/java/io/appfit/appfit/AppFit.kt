@@ -3,6 +3,7 @@
 package io.appfit.appfit
 
 import android.content.Context
+import io.appfit.appfit.networking.Digestible
 import io.appfit.appfit.networking.EventDigester
 
 /**
@@ -14,9 +15,17 @@ import io.appfit.appfit.networking.EventDigester
 class AppFit(
     context: Context,
     /// The configuration for the AppFit SDK.
-    configuration: AppFitConfiguration
+    configuration: AppFitConfiguration,
+
+    /// The digestible class for the AppFit SDK.
+    /// This is used for testing purposes only and should not be
+    /// used in production.
+    digester: Digestible? = null
 ) {
-    private val eventDigester = EventDigester(context = context, apiKey = configuration.apiKey)
+    private val eventDigester: Digestible = digester ?: EventDigester(
+        context = context,
+        apiKey = configuration.apiKey
+    )
 
     init {
         // Once we boot up the AppFit SDK, we need to generate an anonymousId
