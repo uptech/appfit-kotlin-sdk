@@ -23,6 +23,11 @@ class AppFit(
         // and set the userId to null. This is to ensure that we have the most
         // up-to-date information for the events.
         eventDigester.identify(userId = null)
+
+        // This is a unique event that is used specifically to track when the
+        // AppFit SDK has been initialized.
+        // This is an internal event.
+        trackEvent(name = "appfit_sdk_initialized")
     }
 
     /**
@@ -64,5 +69,10 @@ class AppFit(
      */
     fun identifyUser(userId: String?) {
         eventDigester.identify(userId = userId)
+
+        // This is a unique event that is used specifically to track when the
+        // AppFit SDK has been identified a user
+        // This is an internal event.
+        trackEvent(name = "appfit_user_identified")
     }
 }
