@@ -23,7 +23,7 @@ class ApiClientTest {
                 userId = null,
                 anonymousId = "android_studio_75fbf7a3-2197-4353-9b39-eeadf4628c68",
                 properties = mapOf("language" to "kotlin"),
-                systemProperties = null
+                systemProperties = mapOf("origin" to "kotlin")
             )
         )
         advanceUntilIdle()
@@ -43,7 +43,7 @@ class ApiClientTest {
                 userId = null,
                 anonymousId = "android_studio_75fbf7a3-2197-4353-9b39-eeadf4628c68",
                 properties = mapOf("language" to "kotlin"),
-                systemProperties = null
+                systemProperties = mapOf("origin" to "kotlin")
             )
         )
         advanceUntilIdle()

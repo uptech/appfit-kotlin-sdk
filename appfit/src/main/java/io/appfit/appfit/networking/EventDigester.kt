@@ -105,6 +105,11 @@ internal class EventDigester(
     }
 
     private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?): RawMetricEvent {
+        // For now, we are going to hard-code the system properties with the one key that we need.
+        // Eventually we need to make this dynamic and move this to another place as we will be
+        // fetching system properties of the device.
+        val systemProperties: Map<String, Any> = mapOf("origin" to "kotlin")
+        
         return RawMetricEvent(
             occurredAt = event.date,
             eventSource = APPFIT_EVENT_SOURCE,
@@ -112,7 +117,7 @@ internal class EventDigester(
                 eventId = event.id,
                 name = event.name,
                 properties = event.properties,
-                systemProperties = null,
+                systemProperties = systemProperties,
                 userId = userId,
                 anonymousId = anonymousId,
             )
