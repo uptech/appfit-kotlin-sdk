@@ -4,7 +4,7 @@ plugins {
     id("maven-publish")
 }
 
-val sdkVersion = "0.0.2-SNAPSHOT"
+val sdkVersion = "1.0.0"
 android {
     namespace = "io.appfit.appfit"
     compileSdk = 34
