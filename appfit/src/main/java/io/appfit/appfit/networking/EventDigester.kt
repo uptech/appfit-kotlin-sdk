@@ -29,9 +29,6 @@ internal class EventDigester(
     private val apiClient = ApiClient(apiKey = apiKey)
 
     init {
-        GlobalScope.launch {
-            appFitCache.generateAnonymousId()
-        }
         Executors.newSingleThreadScheduledExecutor().schedule({
             digestCachedEvents()
         }, 15, TimeUnit.MINUTES)
@@ -52,8 +49,7 @@ internal class EventDigester(
             val result = apiClient.send(rawMetricEvent)
             when (result) {
                 true -> {
-                    // Remove the event from the cache
-                    cache.remove(event)
+                    // For now, we just do nothing.
                 }
                 false -> {
                     // Add the event to the cache

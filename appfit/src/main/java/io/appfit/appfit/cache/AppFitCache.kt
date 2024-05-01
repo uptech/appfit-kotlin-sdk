@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import io.appfit.appfit.cache.AppFitCache.Companion.ANONYMOUS_ID
 import kotlinx.coroutines.flow.first
 import java.util.UUID
 
@@ -34,20 +35,16 @@ internal class AppFitCache(
         return settings[USER_ID]
     }
 
-    suspend fun generateAnonymousId(): String {
-        val currentId = getAnonymousId()
-        val id = UUID.randomUUID().toString()
-        if (currentId == null) {
-            context.dataStore.edit { settings ->
-                settings[ANONYMOUS_ID] = id
-            }
-            return id
-        }
-        return currentId
-    }
-
     suspend fun getAnonymousId(): String? {
         val settings = context.dataStore.data.first()
-        return settings[ANONYMOUS_ID]
+        return settings[ANONYMOUS_ID] ?: return generateAnonymousId()
+    }
+
+    private suspend fun generateAnonymousId(): String {
+        val id = UUID.randomUUID().toString()
+        context.dataStore.edit { settings ->
+            settings[ANONYMOUS_ID] = id
+        }
+        return id
     }
 }

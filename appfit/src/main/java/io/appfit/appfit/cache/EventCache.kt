@@ -18,9 +18,9 @@ class EventCache(
     writeToDiskInterval: Long = 5,
     timeUnit: TimeUnit = TimeUnit.MINUTES
 ) {
-    private var cache = mutableMapOf<String, AppFitEvent>()
+    private var cache = mutableListOf<AppFitEvent>()
 
-    internal val events: List<AppFitEvent> get() = cache.values.toList()
+    internal val events: List<AppFitEvent> get() = cache
 
     init {
         GlobalScope.launch {
@@ -35,15 +35,15 @@ class EventCache(
     }
 
     internal fun add(event: AppFitEvent) {
-        cache[event.id.toString()] = event
+        cache.add(event)
     }
 
     internal fun remove(event: AppFitEvent) {
-        cache.remove(event.id.toString())
+        remove(event.id.toString())
     }
 
     internal fun remove(id: String) {
-        cache.remove(id)
+        cache.removeAll { it.id.toString() == id }
     }
 
     internal fun clear() {
@@ -63,7 +63,7 @@ class EventCache(
             if (cacheFile.exists()) {
                 val json = cacheFile.readText()
                 val events = gson.fromJson(json, Array<AppFitEvent>::class.java)
-                cache = events.associateBy { it.id.toString() }.toMutableMap()
+                cache = events.toMutableList()
             }
         }
     }
@@ -80,7 +80,7 @@ class EventCache(
             }
 
             val gson = getConfiguredGsonSerializer()
-            val json = gson.toJson(events)
+            val json = gson.toJson(cache)
             cacheFile.writeText(json)
         }
     }
