@@ -35,6 +35,9 @@ class EventCache(
     }
 
     internal fun add(event: AppFitEvent) {
+        if (cache.contains(event)) {
+            remove(event)
+        }
         cache.add(event)
     }
 
