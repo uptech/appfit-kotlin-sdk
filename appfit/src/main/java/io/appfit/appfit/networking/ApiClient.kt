@@ -1,12 +1,10 @@
 package io.appfit.appfit.networking
 
-import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.header
@@ -44,27 +42,27 @@ internal class ApiClient(
             .create()
     }
 
-    suspend fun send(event: RawMetricEvent): Boolean{
+    suspend fun send(event: MetricEvent): Boolean{
         val gson = getConfiguredGsonSerializer()
 
         val response: HttpResponse = client.post {
             url {
                 appendPathSegments("metric-events")
             }
-            setBody(gson.toJson(event, RawMetricEvent::class.java))
+            setBody(gson.toJson(event, MetricEvent::class.java))
         }
 
         return response.status.value in 200..299
     }
 
-    suspend fun send(events: List<RawMetricEvent>): Boolean {
+    suspend fun send(events: List<MetricEvent>): Boolean {
         val gson = getConfiguredGsonSerializer()
 
         val response: HttpResponse = client.post {
             url {
                 appendPathSegments("metric-events", "batch")
             }
-            setBody(gson.toJson(BatchRawMetricEvents(events), BatchRawMetricEvents::class.java))
+            setBody(gson.toJson(BatchMetricEvents(events), BatchMetricEvents::class.java))
         }
 
         return response.status.value in 200..299

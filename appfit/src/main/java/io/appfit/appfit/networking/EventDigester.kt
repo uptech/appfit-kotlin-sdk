@@ -1,9 +1,13 @@
 package io.appfit.appfit.networking
 
 import android.content.Context
+import android.os.Build
 import io.appfit.appfit.AppFitEvent
 import io.appfit.appfit.cache.AppFitCache
 import io.appfit.appfit.cache.EventCache
+import io.appfit.appfit.properties.DeviceProperties
+import io.appfit.appfit.properties.EventSystemProperties
+import io.appfit.appfit.properties.OperatingSystem
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,7 +25,7 @@ interface Digestible {
  */
 @OptIn(DelicateCoroutinesApi::class)
 internal class EventDigester(
-    context: Context,
+    val context: Context,
     apiKey: String
 ): Digestible {
     private val appFitCache = AppFitCache(context = context)
@@ -100,22 +104,26 @@ internal class EventDigester(
         }
     }
 
-    private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?): RawMetricEvent {
-        // For now, we are going to hard-code the system properties with the one key that we need.
-        // Eventually we need to make this dynamic and move this to another place as we will be
-        // fetching system properties of the device.
-        val systemProperties: Map<String, Any> = mapOf("origin" to "kotlin")
-        
-        return RawMetricEvent(
+    private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?): MetricEvent {
+        val versionString = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        return MetricEvent(
             occurredAt = event.date,
-            eventSource = APPFIT_EVENT_SOURCE,
-            payload = MetricEvent(
-                eventId = event.id,
-                name = event.name,
-                properties = event.properties,
-                systemProperties = systemProperties,
+            payload = EventPayload(
+                sourceEventId = event.id,
+                eventName = event.name,
                 userId = userId,
                 anonymousId = anonymousId,
+                properties = event.properties,
+                systemProperties = EventSystemProperties(
+                    appVersion = versionString,
+                    device = DeviceProperties(
+                        manufacturer = Build.MANUFACTURER,
+                        model = Build.MODEL
+                    ),
+                    operatingSystem = OperatingSystem(
+                        version = Build.VERSION.RELEASE
+                    )
+                )
             )
         )
     }

@@ -1,40 +1,33 @@
 package io.appfit.appfit.networking
 
-import java.util.UUID
+import java.util.Date
+
+private const val APPFIT_EVENT_SOURCE = "appfit"
 
 /**
- * A metric event that is sent to the AppFit API.
+ * A raw metric event that is sent to the AppFit API.
  *
- * This is the event that is sent to the AppFit API.
+ * This is the raw event that is sent to the AppFit API.
  */
 internal data class MetricEvent(
     /**
-     * The unique identifier for the event.
+     * The source of the event.
+     *
+     * This is hardcoded to `appfit` in the SDK.
      */
-    val eventId: UUID,
+    val eventSource: String = APPFIT_EVENT_SOURCE,
 
     /**
-     * The name of the event.
+     * The time the event occurred.
+     *
+     * This is a UTC timestamp in ISO-8601 format.
      */
-    val name: String,
+    val occurredAt: Date,
 
     /**
-     * The user identifier for the event.
+     * The event payload.
+     *
+     * This is the event that is tracked by AppFit.
      */
-    val userId: String?,
-
-    /**
-     * The anonymous identifier for the event.
-     */
-    val anonymousId: String?,
-
-    /**
-     * The properties of the event.
-     */
-    val properties: Map<String, Any>?,
-
-    /**
-     * The system properties of the event.
-     */
-    val systemProperties: Map<String, Any>?
+    val payload: EventPayload,
 )
