@@ -14,5 +14,8 @@ package io.appfit.appfit
  */
 data class AppFitConfiguration(
     /// The API key provided by AppFit.
-    val apiKey: String
+    val apiKey: String,
+
+    /// The version of the app.
+    val appVersion: String? = null,
 )

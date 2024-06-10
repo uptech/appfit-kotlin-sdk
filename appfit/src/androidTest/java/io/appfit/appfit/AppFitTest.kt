@@ -24,7 +24,7 @@ class AppFitTest {
 
     private val appFit = AppFit(
         context = context,
-        configuration = AppFitConfiguration(apiKey = ""),
+        configuration = AppFitConfiguration(apiKey = "", appVersion = null),
         digester = digesterSpy
     )
 

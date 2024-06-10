@@ -26,7 +26,8 @@ interface Digestible {
 @OptIn(DelicateCoroutinesApi::class)
 internal class EventDigester(
     val context: Context,
-    apiKey: String
+    apiKey: String,
+    val appVersion: String? = null
 ): Digestible {
     private val appFitCache = AppFitCache(context = context)
     private val cache = EventCache()
@@ -105,7 +106,11 @@ internal class EventDigester(
     }
 
     private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?): MetricEvent {
-        val versionString = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        var versionString = context.packageManager.getPackageInfo(context.packageName, 0).versionName
+        if (appVersion != null) {
+            versionString = appVersion
+        }
+
         return MetricEvent(
             occurredAt = event.date,
             payload = EventPayload(
