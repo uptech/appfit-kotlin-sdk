@@ -3,7 +3,7 @@ package io.appfit.appfit.networking
 import io.appfit.appfit.properties.EventSystemProperties
 import java.util.UUID
 
-private const val PAYLOAD_VERSION = "2"
+
 private const val APPFIT_ORIGIN = "kotlin"
 
 /**
@@ -12,11 +12,6 @@ private const val APPFIT_ORIGIN = "kotlin"
  * This is the event that is sent to the AppFit API.
  */
 internal data class EventPayload(
-    /**
-     * The name of the event.
-     */
-    val version: String = PAYLOAD_VERSION,
-
     /**
      * The unique identifier for the event.
      */
