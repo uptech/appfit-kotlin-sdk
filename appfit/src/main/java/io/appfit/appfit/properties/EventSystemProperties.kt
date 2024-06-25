@@ -9,6 +9,12 @@ internal data class EventSystemProperties(
     @SerializedName("appVersion")
     val appVersion: String?,
 
+    /*
+     * The IP Address of the device
+     */
+    @SerializedName("ipAddress")
+    val ipAddress: String?,
+
     /* All of the device related properties
      * These include anything that is specific to the physical device
      * such as model, operating system version, platform, etc

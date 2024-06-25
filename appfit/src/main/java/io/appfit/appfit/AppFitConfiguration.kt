@@ -18,4 +18,7 @@ data class AppFitConfiguration(
 
     /// The version of the app.
     val appVersion: String? = null,
+
+    /// Enable or disable IP Tracking
+    val enableIpTracking: Boolean = true
 )

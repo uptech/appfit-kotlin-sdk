@@ -29,6 +29,7 @@ class ApiClientTest {
                 properties = mapOf("language" to "kotlin"),
                 systemProperties = EventSystemProperties(
                     appVersion = "1.0.0",
+                    ipAddress = "98.234.193.126",
                     device = DeviceProperties(
                         manufacturer = "Unit",
                         model = "Test"
@@ -57,6 +58,7 @@ class ApiClientTest {
                 properties = mapOf("language" to "kotlin"),
                 systemProperties = EventSystemProperties(
                     appVersion = "1.0.0",
+                    ipAddress = "98.234.193.126",
                     device = DeviceProperties(
                         manufacturer = "Unit",
                         model = "Test"

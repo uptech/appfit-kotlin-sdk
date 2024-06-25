@@ -5,6 +5,7 @@ import android.os.Build
 import io.appfit.appfit.AppFitEvent
 import io.appfit.appfit.cache.AppFitCache
 import io.appfit.appfit.cache.EventCache
+import io.appfit.appfit.cache.IPAddress
 import io.appfit.appfit.properties.DeviceProperties
 import io.appfit.appfit.properties.EventSystemProperties
 import io.appfit.appfit.properties.OperatingSystem
@@ -27,11 +28,13 @@ interface Digestible {
 internal class EventDigester(
     val context: Context,
     apiKey: String,
-    val appVersion: String? = null
+    private val appVersion: String? = null,
+    val enableIpTracking: Boolean = true
 ): Digestible {
     private val appFitCache = AppFitCache(context = context)
     private val cache = EventCache()
     private val apiClient = ApiClient(apiKey = apiKey)
+    private var ipAddress = IPAddress()
 
     init {
         Executors.newSingleThreadScheduledExecutor().schedule({
@@ -50,7 +53,9 @@ internal class EventDigester(
         GlobalScope.launch {
             val userId = appFitCache.getUserId()
             val anonymousId = appFitCache.getAnonymousId()
-            val rawMetricEvent = createRawMetricEvent(event, userId, anonymousId)
+            val ipAddress = ipAddress.fetchIpAddress()
+
+            val rawMetricEvent = createRawMetricEvent(event, userId, anonymousId, ipAddress)
             val result = apiClient.send(rawMetricEvent)
             when (result) {
                 true -> {
@@ -85,10 +90,11 @@ internal class EventDigester(
         GlobalScope.launch {
             val userId = appFitCache.getUserId()
             val anonymousId = appFitCache.getAnonymousId()
+            val ipAddress = ipAddress.fetchIpAddress()
 
             // Get the cached events
             val events = cache.events.map { event ->
-                createRawMetricEvent(event, userId, anonymousId)
+                createRawMetricEvent(event, userId, anonymousId, ipAddress)
             }
 
             // Send the events to the AppFit API
@@ -105,7 +111,7 @@ internal class EventDigester(
         }
     }
 
-    private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?): MetricEvent {
+    private fun createRawMetricEvent(event: AppFitEvent, userId: String?, anonymousId: String?, ipAddress: String?): MetricEvent {
         var versionString = context.packageManager.getPackageInfo(context.packageName, 0).versionName
         if (appVersion != null) {
             versionString = appVersion
@@ -121,6 +127,7 @@ internal class EventDigester(
                 properties = event.properties,
                 systemProperties = EventSystemProperties(
                     appVersion = versionString,
+                    ipAddress = if (enableIpTracking) ipAddress else null,
                     device = DeviceProperties(
                         manufacturer = Build.MANUFACTURER,
                         model = Build.MODEL
