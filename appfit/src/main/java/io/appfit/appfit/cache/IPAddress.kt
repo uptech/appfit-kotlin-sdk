@@ -47,7 +47,7 @@ internal class IPAddress(
     }
 
     suspend fun fetchIpAddress(): String? {
-        if (!isExpired()) {
+        if (!isExpired() && address != null) {
             return address
         }
 

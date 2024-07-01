@@ -2,6 +2,7 @@ package io.appfit.appfit.networking
 
 import android.os.Build
 import com.google.gson.GsonBuilder
+import io.appfit.appfit.cache.IPAddress
 import io.appfit.appfit.properties.DeviceProperties
 import io.appfit.appfit.properties.EventSystemProperties
 import io.appfit.appfit.properties.OperatingSystem
@@ -19,6 +20,8 @@ class ApiClientTest {
 
     @Test
     fun testSingleEvent() = runTest {
+        val ipAddress = IPAddress().fetchIpAddress()
+
         val event = MetricEvent(
             occurredAt = Date(),
             payload = EventPayload(
@@ -29,7 +32,7 @@ class ApiClientTest {
                 properties = mapOf("language" to "kotlin"),
                 systemProperties = EventSystemProperties(
                     appVersion = "1.0.0",
-                    ipAddress = "98.234.193.126",
+                    ipAddress = ipAddress,
                     device = DeviceProperties(
                         manufacturer = "Unit",
                         model = "Test"
@@ -48,6 +51,8 @@ class ApiClientTest {
 
     @Test
     fun testBatchEvents() = runTest {
+        val ipAddress = IPAddress().fetchIpAddress()
+
         val event = MetricEvent(
             occurredAt = Date(),
             payload = EventPayload(
@@ -58,13 +63,13 @@ class ApiClientTest {
                 properties = mapOf("language" to "kotlin"),
                 systemProperties = EventSystemProperties(
                     appVersion = "1.0.0",
-                    ipAddress = "98.234.193.126",
+                    ipAddress = ipAddress,
                     device = DeviceProperties(
                         manufacturer = "Unit",
                         model = "Test"
                     ),
                     operatingSystem = OperatingSystem(
-                        version = Build.VERSION.RELEASE
+                        version = "14"
                     )
                 )
             )
