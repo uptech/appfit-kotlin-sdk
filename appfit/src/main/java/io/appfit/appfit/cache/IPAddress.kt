@@ -42,7 +42,7 @@ internal class IPAddress(
             .create()
     }
 
-    fun isExpired(): Boolean {
+    private fun isExpired(): Boolean {
         return Date().time - lastUpdatedAt.time > 1000 * 60 * 60
     }
 
